@@ -1,0 +1,148 @@
+/* Fonts loaded in index.html <link> (blocking) to prevent FOUT width-shift */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════════
+   TASKFLOW — MASTER THEME FILE (MVC: Single Source of Truth)
+   
+   ✦ ALL colors live HERE. Change this file to retheme 
+     the entire application.
+   ✦ Tailwind config reads from these variables.
+   ✦ Components never hardcode color values.
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  /* ─── Brand / Primary ────────────────────────────── */
+  --brand-600: #1e3a5f;         /* Primary brand — buttons, accents */
+  --brand-700: #15304f;         /* Brand hover state */
+  --brand-500: #2a5080;         /* Brand lighter */
+  --brand-100: #dbe9f8;         /* Brand tint — subtle bg */
+  --brand-50:  #eef4fb;         /* Brand wash — very subtle bg */
+
+  /* ─── Success / Green ────────────────────────────── */
+  --success-600: #15803d;       /* Success dark — text on light bg */
+  --success-500: #16a34a;       /* Success — badges, indicators */
+  --success-100: #dcfce7;       /* Success tint */
+  --success-50:  #f0fdf4;       /* Success wash */
+
+  /* ─── Alert / Red ────────────────────────────────── */
+  --alert-600: #dc2626;         /* Alert — errors, overdue */
+  --alert-500: #ef4444;         /* Alert lighter */
+  --alert-100: #fee2e2;         /* Alert tint */
+  --alert-50:  #fef2f2;         /* Alert wash */
+
+  /* ─── Warning / Amber ────────────────────────────── */
+  --warning-600: #d97706;       /* Warning dark — text */
+  --warning-500: #f59e0b;       /* Warning — badges */
+  --warning-100: #fef3c7;       /* Warning tint */
+  --warning-50:  #fffbeb;       /* Warning wash */
+
+  /* ─── Canvas / Backgrounds ──────────────────────── */
+  --canvas:      #f1f5f9;       /* Page background */
+  --card:        #ffffff;       /* Card / surface background */
+  --card-hover:  #f8fafc;       /* Card hover state */
+  --muted-bg:    #e2e8f0;       /* Muted backgrounds — skeletons, disabled */
+
+  /* ─── Ink / Text ─────────────────────────────────── */
+  --ink-900:     #0f172a;       /* Headings, primary text */
+  --ink-700:     #334155;       /* Body text */
+  --ink-500:     #64748b;       /* Secondary / muted text */
+  --ink-400:     #94a3b8;       /* Placeholder, faint text */
+  --ink-300:     #cbd5e1;       /* Ghost text, disabled */
+  --ink-white:   #ffffff;       /* Text on dark backgrounds */
+
+  /* ─── Borders / Lines ────────────────────────────── */
+  --line:        #e2e8f0;       /* Default borders */
+  --line-light:  #f1f5f9;       /* Very faint borders */
+  --line-focus:  #2a5080;       /* Focus ring color */
+
+  /* ─── Role Colors ────────────────────────────────── */
+  --role-personal-bg:  #f1f5f9;
+  --role-personal-txt: #334155;
+  --role-assigner-bg:  #dbe9f8;
+  --role-assigner-txt: #1e3a5f;
+  --role-assignee-bg:  #ede9fe;
+  --role-assignee-txt: #6d28d9;
+
+  /* ─── Shadows ────────────────────────────────────── */
+  --shadow-card:       0 1px 3px rgba(15,23,42,0.05), 0 4px 14px rgba(15,23,42,0.05);
+  --shadow-card-hover: 0 4px 12px rgba(15,23,42,0.08), 0 8px 28px rgba(15,23,42,0.07);
+  --shadow-nav:        0 1px 3px rgba(15,23,42,0.06);
+  --shadow-modal:      0 20px 60px rgba(15,23,42,0.18);
+  --shadow-input:      0 1px 2px rgba(15,23,42,0.06);
+  --shadow-focus:      0 0 0 3px rgba(42,80,128,0.2);
+}
+
+
+/* ═══════════════════════════════════════════════════
+   BASE RESET & TYPOGRAPHY
+   ═══════════════════════════════════════════════════ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  background-color: var(--canvas);
+  color: var(--ink-900);
+  min-height: 100vh;
+}
+
+h1, h2, h3 {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-weight: 400;
+  color: var(--ink-900);
+}
+
+h4, h5, h6 {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-weight: 600;
+  color: var(--ink-900);
+}
+
+
+/* ═══════════════════════════════════════════════════
+   SCROLLBAR
+   ═══════════════════════════════════════════════════ */
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--canvas); }
+::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--ink-400); }
+
+
+/* ═══════════════════════════════════════════════════
+   FOCUS RING (accessible)
+   ═══════════════════════════════════════════════════ */
+
+.focus-ring:focus {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+
+/* ═══════════════════════════════════════════════════
+   SKELETON PULSE
+   ═══════════════════════════════════════════════════ */
+
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.skeleton-pulse {
+  animation: skeleton-pulse 1.8s ease-in-out infinite;
+  background-color: var(--muted-bg);
+  border-radius: 6px;
+}
