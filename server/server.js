@@ -14,10 +14,19 @@ connectDB();
 const app = express();
 const server = http.createServer(app);
 
+// Allow dynamic Vercel frontend or localhost
+const allowedOrigins = [
+  'http://localhost:5173', 
+  'http://localhost:3000', 
+  'http://localhost:5174', 
+  'http://localhost:5175',
+  process.env.FRONTEND_URL
+].filter(Boolean);
+
 // Initialize Socket.IO with CORS
 const io = new Server(server, {
   cors: {
-    origin: ['http://localhost:5173', 'http://localhost:3000', 'http://localhost:5174', 'http://localhost:5175'],
+    origin: allowedOrigins,
     credentials: true,
   },
 });
@@ -39,7 +48,7 @@ app.use(express.json());
 // Enable CORS
 app.use(
   cors({
-    origin: ['http://localhost:5173', 'http://localhost:3000', 'http://localhost:5174', 'http://localhost:5175'],
+    origin: allowedOrigins,
     credentials: true,
   })
 );

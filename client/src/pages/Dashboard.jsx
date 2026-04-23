@@ -55,7 +55,12 @@ export default function Dashboard() {
   useEffect(() => {
     if (!user) return;
 
-    const socket = io('http://localhost:5001', {
+    // If in production, connect to the underlying host root of the API
+    const socketUrl = import.meta.env.VITE_API_URL 
+      ? import.meta.env.VITE_API_URL.replace('/api', '') 
+      : 'http://localhost:5001';
+
+    const socket = io(socketUrl, {
       withCredentials: true,
     });
 
