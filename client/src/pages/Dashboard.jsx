@@ -56,9 +56,11 @@ export default function Dashboard() {
     if (!user) return;
 
     // If in production, connect to the underlying host root of the API
-    const socketUrl = import.meta.env.VITE_API_URL 
-      ? import.meta.env.VITE_API_URL.replace('/api', '') 
-      : 'http://localhost:5001';
+    let socketUrl = 'http://localhost:5001';
+    if (import.meta.env.VITE_API_URL) {
+      let envUrl = import.meta.env.VITE_API_URL.replace(/\/$/, ''); // stripped trailing slash
+      socketUrl = envUrl.endsWith('/api') ? envUrl.slice(0, -4) : envUrl;
+    }
 
     const socket = io(socketUrl, {
       withCredentials: true,

@@ -1,8 +1,14 @@
 import axios from 'axios';
 
+let apiUrl = 'http://localhost:5001/api';
+if (import.meta.env.VITE_API_URL) {
+  let envUrl = import.meta.env.VITE_API_URL.replace(/\/$/, ''); // Remove any trailing slash
+  apiUrl = envUrl.endsWith('/api') ? envUrl : `${envUrl}/api`;
+}
+
 const API = axios.create({
-  // Use VITE_API_URL environment variable for production, fallback to local dev port
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5001/api',
+  // Safely constructed API URL
+  baseURL: apiUrl,
   headers: {
     'Content-Type': 'application/json',
   },

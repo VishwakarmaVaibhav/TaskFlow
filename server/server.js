@@ -14,21 +14,35 @@ connectDB();
 const app = express();
 const server = http.createServer(app);
 
-// Allow dynamic Vercel frontend or localhost
-const allowedOrigins = [
-  'http://localhost:5173', 
-  'http://localhost:3000', 
-  'http://localhost:5174', 
-  'http://localhost:5175',
-  process.env.FRONTEND_URL
-].filter(Boolean);
+// Dynamic robust CORS logic
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+
+    const allowed = ['http://localhost:5173', 'http://localhost:3000', 'http://localhost:5174', 'http://localhost:5175'];
+    
+    // Check if it's generic localhost or configured vercel
+    if (allowed.includes(origin) || origin.endsWith('.vercel.app')) {
+      return callback(null, true);
+    }
+    
+    // Check custom FRONTEND_URL but normalize trailing slashes just in case
+    let configuredOrigin = process.env.FRONTEND_URL;
+    if (configuredOrigin) {
+      configuredOrigin = configuredOrigin.replace(/\/$/, '');
+      if (origin === configuredOrigin) {
+        return callback(null, true);
+      }
+    }
+    
+    callback(new Error('Not allowed by CORS'));
+  },
+  credentials: true,
+};
 
 // Initialize Socket.IO with CORS
 const io = new Server(server, {
-  cors: {
-    origin: allowedOrigins,
-    credentials: true,
-  },
+  cors: corsOptions,
 });
 
 // Make io accessible via req.app.get('io') in controllers
@@ -46,12 +60,7 @@ io.on('connection', (socket) => {
 app.use(express.json());
 
 // Enable CORS
-app.use(
-  cors({
-    origin: allowedOrigins,
-    credentials: true,
-  })
-);
+app.use(cors(corsOptions));
 
 // Mount routes
 app.use('/api/auth', require('./routes/authRoutes'));
