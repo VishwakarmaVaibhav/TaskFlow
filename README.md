@@ -1,10 +1,10 @@
-# TaskFlow — Real-Time Task Management System 🚀
+# TaskFlow — Real-Time Task Management System 
 
 TaskFlow is a premium, full-stack task management application built with the MERN stack. It features real-time WebSocket updates, a strict role-based permission system, and a remarkably clean, "Fintech Corporate" Light Mode UI architecture.
 
 ---
 
-## 🛠 Technologies Used
+## Technologies Used
 
 ### Frontend
 - **React.js 19**: Modern component-based UI engineering.
@@ -21,7 +21,7 @@ TaskFlow is a premium, full-stack task management application built with the MER
 
 ---
 
-## 🧠 Core Logics & Architecture
+## Core Logics & Architecture
 
 ### 1. The Real-Time "User Room" WebSocket Logic
 Rather than forcing users to manually refresh their browser, we implemented **Socket.IO** attached directly to the Express server.
@@ -42,7 +42,7 @@ Instead of relying on heavy third-party UI libraries, we built custom, highly re
 
 ---
 
-## 🚀 How to Start the Project
+## How to Start the Project
 
 ### Prerequisites
 Make sure you have **Node.js** installed along with either **npm** or **yarn**. You will also need a MongoDB instance running either locally or via MongoDB Atlas.
@@ -92,11 +92,3 @@ npm run dev
 ```
 
 Open your browser to: **`http://localhost:5173`**
-
----
-
-## 🌍 Where to Use Online Links (Production Deployment)
-When you are ready to put this project live on the internet, you will swap out the `localhost` variables above:
-1. **Database:** Inside `server/.env`, replace the `MONGO_URI` with the connection string provided by **MongoDB Atlas**.
-2. **API Connection:** Inside `client/.env`, replace `VITE_API_URL` with the literal web address of your deployed backend (e.g., `https://taskflow-api.onrender.com/api`).
-3. **CORS Whitelist:** Ensure that inside `server.js`, you add your deployed Frontend URL (e.g., Vercel or Netlify link) to the `cors` origin array so your backend trusts it.
