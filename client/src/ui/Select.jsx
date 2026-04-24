@@ -132,7 +132,7 @@ const Select = forwardRef(function Select(
               exit={{ opacity: 0, y: -4, scale: 0.98 }}
               transition={{ duration: 0.15 }}
               className="absolute z-30 top-full left-0 right-0 mt-1.5
-                bg-card border border-line rounded-input shadow-card-hover
+                bg-card border border-line rounded-input
                 overflow-hidden"
             >
               {options.map((opt) => {
